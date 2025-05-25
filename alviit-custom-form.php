@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Alviit Custom Form
+ * Plugin Name:       Alviit Form
  * Description:       A custom form plugin with advanced JS/CSS support.
  * Version:           1.0.0
  * Author:            Md. Sohanur Rohman Sihab
