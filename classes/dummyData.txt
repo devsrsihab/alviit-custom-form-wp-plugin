@@ -1,0 +1,94 @@
+=== LIVING ROOM ===
+Boxes (m3_value=0.1)
+2 person sofa(m3_value=1)
+3 person sofa (m3_value=1.5)
+Armchair (m3_value=0.5)
+Carpet (m3_value=0.5)
+Chair (m3_value=0.2)
+Closet (m3_value=1)
+Coffee table(m3_value=0.4)
+Cupboard (m3_value=1)
+Desk (m3_value=1)
+Dining  table(m3_value=0.75)
+Dressoir (m3_value=1)
+Large  Chair(m3_value=0.5)
+Paintings (m3_value=0.15)
+Plants (m3_value=0.1)
+Secretaire (m3_value=0.5)
+Side  table(m3_value=0.2)
+Small  furniture(m3_value=0.3)
+TV (m3_value=0.4)
+
+
+=== BEDROOM ===
+Boxes (m3_value=0.1)
+Baby bath (m3_value=0.2)
+Bedside cabinet (m3_value=0.3)
+Box (m3_value=0.2)
+Chair (m3_value=0.2)
+Conversion (m3_value=0.5)
+Crib (m3_value=0.4)
+Cupboard 2 doors (m3_value=1)
+Cupboard 3 doors (m3_value=2)
+Desk (m3_value=1)
+Double bed (m3_value=0.7)
+Dresser (m3_value=1)
+Dressing table (m3_value=0.6)
+Highchair (baby) (m3_value=0.15)
+Large toys (m3_value=0.5)
+Large wardrobe (m3_value=0.6)
+Mattress (m3_value=0.1)
+Single bed (m3_value=0.3)
+Small wardrobe (m3_value=0.4)
+Stereo (m3_value=0.2)
+TV (m3_value=0.4)
+
+=== BATHROOM ===
+Boxes (m3_value=0.1)
+Closet (m3_value=1)
+Dryer (m3_value=0.6)
+Washing machine (m3_value=0.6)
+
+=== STUDY ===
+Boxes (m3_value=0.1)
+Bookcase (m3_value=1)
+Chair (m3_value=0.2)
+Computer (m3_value=0.25)
+Desk (m3_value=1)
+
+=== KITCHEN === 
+Boxes (m3_value=0.1)
+Buffet (m3_value=1)
+Closet (m3_value=1)
+Dinette (m3_value=1)
+Dishwasher (m3_value=0.5)
+Freezer (m3_value=0.5)
+Microwave (m3_value=0.3)
+Oven (m3_value=0.3)
+Refrigerator (m3_value=0.5)
+Stove (m3_value=0.5)
+
+=== SHED === 
+Boxes (m3_value=0.1)
+Garden tools (m3_value=0.5)
+Ladder (m3_value=0.3)
+Large bike (m3_value=0.5)
+Small bike (m3_value=0.3)
+Workbench (m3_value=1)
+
+=== GARDEN === 
+Garden tables (m3_value=0.75)
+Planter (m3_value=0.5)
+Wood (m3_value=0.1)
+
+=== ATTIC === 
+Boxes (m3_value=0.1)
+Bed (m3_value=0.3)
+Camping gear (m3_value=1)
+Christmas decorations (m3_value=0.5)
+Closet (m3_value=1)
+Cradle (m3_value=0.5)
+
+=== OTHER === 
+Other 0.5m3 (0.5)  
+Other 1.0m3 (1) 
