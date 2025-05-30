@@ -519,7 +519,6 @@
                       <!-- period end -->
 
                       <!-- Preferred date start -->
-
                       <div id="preferred-date">
                         <label
                           app-i18n="moveDetails_date_label"
