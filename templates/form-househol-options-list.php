@@ -34,7 +34,7 @@
   'SCHUUR' => 'secondary',         // SHED
   'TUIN' => 'dark',                // GARDEN
   'ZOLDER' => 'light',             // ATTIC
-  'ANDERS' => 'custom-other'       // OTHER
+  'OVERIG' => 'custom-other'       // OTHER
   ];
 ?>
 

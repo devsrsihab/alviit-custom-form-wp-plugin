@@ -1,12 +1,29 @@
 <?php
+
+// Make sure these constants are defined in your main plugin file first
+if (!defined('ALVIIT_CF_FILE')) {
+    define('ALVIIT_CF_FILE', __FILE__);
+}
+if (!defined('ALVIIT_CF_PATH')) {
+    define('ALVIIT_CF_PATH', plugin_dir_path(__FILE__));
+}
+
 // include the TravelCalculator class
 include_once ALVIIT_CF_PATH . 'classes/TravelCalculator.php';
 
 class AlviitMultiStepForm{
 
+    private $plugin_file;
 
      // Constructor
-     public function __construct(){
+     public function __construct($plugin_file){
+        $this->plugin_file = $plugin_file;
+         // Initialize all hooks
+        $this->init_hooks();
+     }
+
+     private function init_hooks() {
+
         // Load text domain
         add_action( 'plugins_loaded',[$this, 'alviit_cf_load_textdomain'] );
         // admin menu hook
@@ -21,17 +38,40 @@ class AlviitMultiStepForm{
         add_action('wp_ajax_alviit_cf_submit_ajax_handler', [$this, 'alviitcf_submit_ajax_handler']);
         add_action('wp_ajax_alviit_cf_load_data_ajax_handler', [$this, 'alviitcf_load_data_ajax_handler']);
         add_action('wp_ajax_alviit_cf_delete_data_ajax_handler', [$this, 'alviitcf_delete_data_ajax_handler']);
-
+        // Handle form submission
         add_action('admin_post_alviit_cf_handle_form_submission', [$this, 'handle_househol_option_form_submission']);
-        
-
+        // Add plugin action links
+        add_filter('plugin_action_links_' . plugin_basename($this->plugin_file), [$this, 'alviit_cf_plugin_action_links']);
 
      }
+     
+
 
     // Load text domain
     function alviit_cf_load_textdomain() {
         load_plugin_textdomain( 'aitcf-custom-form', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
     }
+
+    //  plugin link for settings
+    function alviit_cf_plugin_action_links($links) {
+        // Remove all existing action links
+        $new_links = [];
+        
+        // Keep only Deactivate if it exists
+        if (isset($links['deactivate'])) {
+            $new_links['deactivate'] = $links['deactivate'];
+        }
+        
+        // Add Settings
+        $new_links['settings'] = sprintf(
+            '<a href="%s">%s</a>',
+            esc_url(admin_url('admin.php?page=alviit-cf')),
+            esc_html__('Settings', 'aitcf')
+        );
+        
+        return $new_links;
+    }
+
 
     //  form shortcode
     function aitcf_render_form() {

@@ -4,55 +4,45 @@
 
   <div class="px-2">
       <removal-step>
-      <!-- stepper -->
-      <stepper section="step">
-        <div class="bg-white row py-2 text-center">
-          <h6 id="indicator-wrapper-1" class="col indicator-wrapper">
-            <span id="indicator-step-1" class="indicator border border-secondary active text-reset">1</span>
-            <span class="d-none d-sm-block"><?= __( 'Adressen', 'aitcf' ); ?></span>
-          </h6>
-          <h6 id="indicator-wrapper-2" class="col indicator-wrapper">
-            <span id="indicator-step-2" class="indicator border border-secondary text-reset">2</span>
-            <span class="d-none d-sm-block"><?= __( 'Voorkeursdatum', 'aitcf' ); ?></span>
-          </h6>
-          <h6 id="indicator-wrapper-3" class="col indicator-wrapper">
-            <span id="indicator-step-3" class="indicator border border-secondary text-reset">3</span>
-            <span class="d-none d-sm-block"><?= __( 'Huishoudelijke objecten', 'aitcf' ); ?></span>
-          </h6>
-          <h6 id="indicator-wrapper-4" class="col indicator-wrapper">
-            <span id="indicator-step-4" class="indicator border border-secondary text-reset">4</span>
-            <span class="d-none d-sm-block"><?= __( 'Extra opties', 'aitcf' ); ?></span>
-          </h6>
-          <h6 id="indicator-wrapper-5" class="col indicator-wrapper">
-            <span id="indicator-step-5" class="indicator border border-secondary text-reset">5</span>
-            <span class="d-none d-sm-block"><?= __( 'Contactgegevens', 'aitcf' ); ?></span>
-          </h6>
-          <h6 id="indicator-wrapper-6" class="col indicator-wrapper">
-            <span id="indicator-step-6" class="indicator border border-secondary text-reset">6</span>
-            <span class="d-none d-sm-block"><?= __( 'Prijsindicatie', 'aitcf' ); ?></span>
-          </h6>
+      <!-- Stepper -->
+      <div class="bg-white row py-2 text-center">
+        <div id="indicator-wrapper-1" class="col indicator-wrapper pointer pointer">
+          <span id="indicator-step-1" class="indicator border border-secondary active text-reset">1</span>
+          <span class="d-none d-sm-block"><?= __('Adressen', 'aitcf'); ?></span>
+        </div>
+        <div id="indicator-wrapper-2" class="col indicator-wrapper pointer">
+          <span id="indicator-step-2" class="indicator border border-secondary text-reset">2</span>
+          <span class="d-none d-sm-block"><?= __('Voorkeursdatum', 'aitcf'); ?></span>
+        </div>
+        <div id="indicator-wrapper-3" class="col indicator-wrapper pointer">
+          <span id="indicator-step-3" class="indicator border border-secondary text-reset">3</span>
+          <span class="d-none d-sm-block"><?= __('Huishoudelijke objecten', 'aitcf'); ?></span>
+        </div>
+        <div id="indicator-wrapper-4" class="col indicator-wrapper pointer">
+          <span id="indicator-step-4" class="indicator border border-secondary text-reset">4</span>
+          <span class="d-none d-sm-block"><?= __('Extra opties', 'aitcf'); ?></span>
+        </div>
+        <div id="indicator-wrapper-5" class="col indicator-wrapper pointer">
+          <span id="indicator-step-5" class="indicator border border-secondary text-reset">5</span>
+          <span class="d-none d-sm-block"><?= __('Contactgegevens', 'aitcf'); ?></span>
+        </div>
+        <div id="indicator-wrapper-6" class="col indicator-wrapper pointer">
+          <span id="indicator-step-6" class="indicator border border-secondary text-reset">6</span>
+          <span class="d-none d-sm-block"><?= __('Prijsindicatie', 'aitcf'); ?></span>
+        </div>
 
-          <div class="col-12">
-            <progressbar id="aitcf-progress-bar" _nghost-ng-c2392848328="" max="100" class="progress">
-              <bar
-                _ngcontent-ng-c2392848328=""
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuenow="8.33333333333333"
-                aria-valuetext="8%"
-                aria-valuemax="100"
-                class="progress-bar"
-                style="height: 100%; width: 8.33333%"
-              ></bar>
-            </progressbar>
+        <!-- Progress Bar -->
+        <div class="col-12 mt-2">
+          <div id="aitcf-progress-bar" class="progress" style="height: 8px;">
+            <div class="progress-bar" role="progressbar" style="width: 8.33%;" aria-valuenow="8.33" aria-valuemin="0" aria-valuemax="100" aria-valuetext="8%"></div>
           </div>
         </div>
-      </stepper>
-      <!-- /stepper -->
+      </div>
 
 
 
-        <div class="container">
+
+        <div class="container px-0 px-md-3">
           <form
             novalidate=""
             id="aitcf-multiStepForm"
@@ -653,7 +643,7 @@
         <!-- step 3 start -->
         <div class="step" id="step-3">
             <div class="row">
-                <div id="tabs-wrapper" class="col-12 col-lg-9">
+                <div id="tabs-wrapper" class="col-12 col-lg-9 px-0 px-md-3">
                     <?php 
                     global $wpdb;
                     $prefix = $wpdb->prefix;
@@ -664,12 +654,12 @@
                         'WOONKAMER' => __('Woonkamer', 'aitcf'),
                         'SLAAPKAMER' => __('Slaapkamer', 'aitcf'),
                         'BADKAMER' => __('Badkamer', 'aitcf'),
-                        'STUDEERKAMER' => __('Werkkamer', 'aitcf'),
+                        'WERKKAMER' => __('Werkkamer', 'aitcf'),
                         'KEUKEN' => __('Keuken', 'aitcf'),
                         'SCHUUR' => __('Schuur', 'aitcf'),
                         'TUIN' => __('Tuin', 'aitcf'),
                         'ZOLDER' => __('Zolder', 'aitcf'),
-                        'ANDERS' => __('Overig', 'aitcf')
+                        'OVERIG' => __('Overig', 'aitcf')
                     ];
 
                     // Group items by room_type
@@ -680,7 +670,8 @@
                     ?>
 
                     <!-- Nav tabs (preserved original order) -->
-                    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+                    <ul class="nav nav-tabs justify-content-md-cente px-0 px-md-3r" id="myTab" role="tablist">
+
                       <?php foreach ($ordered_rooms as $room_type => $label) : 
                         $room_slug = sanitize_title($room_type);
                         $active = array_key_first($ordered_rooms) === $room_type ? 'active' : '';
@@ -703,14 +694,14 @@
                     </ul>
 
                     <!-- Tab content -->
-                    <div class="tab-content p-3 border border-top-0">
+                    <div class="tab-content  p-3 border border-top-0">
                       <?php foreach ($ordered_rooms as $room_type => $label) : 
                         $room_slug = sanitize_title($room_type);
                         $active = array_key_first($ordered_rooms) === $room_type ? 'show active' : '';
                         $items = $grouped_rooms[$room_type] ?? [];
                       ?>
                       <div class="tab-pane fade <?php echo $active; ?>" id="<?php echo $room_slug; ?>" role="tabpanel" aria-labelledby="<?php echo $room_slug; ?>-tab">
-                        <div class="card card-body">
+                        <div class="card card-body px-0 px-sm-3">
                           <div class="row">
                               <?php foreach ($items as $item) : 
                               $input_id = $item['id'];
@@ -830,7 +821,7 @@
                     </div>
                     <div class="card-body">
                       <form-group-horizontal style="cursor: pointer;">
-                          <div class="form-group-container row mb-3">
+                          <div class="form-group-container px-0 px-md-3 row mb-3">
                             <div class="col-4">
                                 <label class="col-form-label">
                                   <h3><?php _e( 'Handyman', 'aitcf' ); ?></h3>
@@ -848,7 +839,7 @@
                                 <small class="form-text text-muted"></small><small class="form-text text-danger text-right"></small><small class="form-text text-muted text-right"></small>
                             </div>
                           </div>
-                          <textarea name="handymanDescription" id="handymanDescription" rows="8" placeholder="<?php _e( 'Please be clear on what needs to be disassembled/assembled. Disassembly is not included in the calculation made on this site, but will be included in the estimate you receive from our office.', 'aitcf' ); ?>" required="" class="form-control ng-touched ng-pristine ng-invalid ng-star-inserted d-none"></textarea>
+                          <textarea name="handymanDescription" id="handymanDescription" rows="8" placeholder="<?php _e( 'Please be clear on what needs to be disassembled/assembled. Disassembly is not included in the calculation made on this site, but will be included in the estimate you receive from our office.', 'aitcf' ); ?>"  class="form-control ng-touched ng-pristine ng-invalid ng-star-inserted d-none"></textarea>
 
                       </form-group-horizontal>
                       <span class="ng-star-inserted">
@@ -870,7 +861,7 @@
                     </div>
                     <div class="card-body">
                       <form-group-horizontal style="cursor: pointer;">
-                          <div class="form-group-container row mb-3">
+                          <div class="form-group-container px-0 px-md-3 row mb-3">
                             <div class="col-4">
                                 <label class="col-form-label">
                                   <h3><?php _e( 'Verhuislift', 'aitcf' ); ?></h3>
@@ -912,7 +903,7 @@
                     </div>
                     <div class="card-body">
                       <form-group-horizontal style="cursor: pointer;">
-                          <div class="form-group-container row mb-3">
+                          <div class="form-group-container px-0 px-md-3 row mb-3">
                             <div class="col-4">
                                 <label class="col-form-label">
                                   <h3><?php _e( 'Full Service', 'aitcf' ); ?></h3>
@@ -1273,14 +1264,13 @@
                         <div class="mt-3 form-check">
                             <input name="termAndCondition" data-cy="terms" type="checkbox" 
                                 class="form-check-input ng-untouched ng-pristine ng-invalid" 
-                                id="termsI have read the <a href=&quot;https://studentverhuisservice.nl/algemene-voorwaarden/&quot; target=&quot;_blank&quot;>terms and conditions</a> and agree with them" 
                                 required="true">
                             <label class="form-check-label">
                                 <?php
                                 echo wp_kses(
                                     sprintf(
                                         __('Ik heb de %1$salgemene voorwaarden%2$s gelezen en ga hiermee akkoord', 'aitcf'),
-                                        '<a href="https://studentverhuisservice.nl/algemene-voorwaarden/" target="_blank">',
+                                        '<a href="/" target="_blank">',
                                         '</a>'
                                     ),
                                     array(

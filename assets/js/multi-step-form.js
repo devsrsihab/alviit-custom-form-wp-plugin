@@ -1,5 +1,10 @@
 jQuery(function ($) {
   let aitcfcurrentStep = 1;
+  let aitcfFormAllData = {};
+  let travelTime = 0;
+  let travelCost = 0;
+  let totalPrice = 0;
+  let addressObj = {};
 
   const stepWidths = {
     1: 8.33333,
@@ -33,10 +38,32 @@ jQuery(function ($) {
     return `${parseInt(day)} ${monthNames[parseInt(month) - 1]} ${year}`;
   }
 
-  // Show step
+  // Function to validate a specific step
+  function validateStep(stepNumber) {
+    const $step = $(`#step-${stepNumber}`);
+    const $inputs = $step.find("input[required], select[required], textarea[required]");
+    let valid = true;
+
+    $inputs.each(function () {
+      const value = $(this).val()?.trim();
+      $(this).siblings(".invalid-feedback").remove(); // Remove previous error
+
+      if (!value) {
+        $(this).addClass("is-invalid");
+        $(this).after('<div class="invalid-feedback">This field is required.</div>');
+        valid = false;
+      } else {
+        $(this).removeClass("is-invalid");
+      }
+    });
+
+    return valid;
+  }
+
+  // Unified show step function
   function showStep(step) {
-    $(".step").removeClass("active");
-    $(`#step-${step}`).addClass("active");
+    $(".step").removeClass("active").hide();
+    $(`#step-${step}`).addClass("active").show();
 
     $(".indicator").each(function (index) {
       const stepIndex = index + 1;
@@ -60,13 +87,34 @@ jQuery(function ($) {
     aitcfcurrentStep = step;
   }
 
-  let aitcfFormAllData = {};
-  let travelTime = 0;
-  let travelCost = 0;
-  let totalPrice = 0;
+  // Function to go to a target step after validating previous ones
+  function goToStep(targetStep) {
+    let allValid = true;
 
-  // addressObj
-  let addressObj = {};
+    for (let i = 1; i < targetStep; i++) {
+      if (!validateStep(i)) {
+        showStep(i);
+        allValid = false;
+        return;
+      }
+    }
+
+    if (allValid) {
+      showStep(targetStep);
+
+      // Call form data functions by step
+      if (targetStep === 2) {
+        stepm1FormData();
+        calculateTravel(addressObj.fromAddress, addressObj.toAddress);
+      }
+      if (targetStep === 3) stepm2FormData();
+      if (targetStep === 4) stepm3FormData();
+      if (targetStep === 5) stepm4FormData();
+      if (targetStep === 6) stepm5FormData();
+
+      calculations();
+    }
+  }
 
   // Step 1 data
   function stepm1FormData() {
@@ -325,47 +373,34 @@ jQuery(function ($) {
     nextStep();
     console.log("form all data ==>", aitcfFormAllData);
   });
+  
   function nextStep() {
-    const $currentStep = $(`#step-${aitcfcurrentStep}`);
-    const $inputs = $currentStep.find("input[required]");
-    let allValid = true;
-
-    $inputs.each(function () {
-      if (!$(this).val().trim()) {
-        $(this).addClass("is-invalid");
-        allValid = false;
-      } else {
-        $(this).removeClass("is-invalid");
+    if (validateStep(aitcfcurrentStep)) {
+      if (aitcfcurrentStep < 6) {
+        goToStep(aitcfcurrentStep + 1);
       }
-    });
-
-    if (allValid && aitcfcurrentStep < 6) {
-      showStep(aitcfcurrentStep + 1);
     }
-
-    console.log("next step", aitcfcurrentStep);
-
-    if (aitcfcurrentStep === 2) {
-      stepm1FormData();
-      calculateTravel(addressObj.fromAddress, addressObj.toAddress);
-    }
-    if (aitcfcurrentStep === 3) stepm2FormData();
-    if (aitcfcurrentStep === 4) stepm3FormData();
-    if (aitcfcurrentStep === 5) stepm4FormData();
-    if (aitcfcurrentStep === 6) stepm5FormData();
-
-    calculations();
   }
 
   // Previous step
   $(".aitcf-prevstep-btn").on("click", function () {
     prevStep();
   });
+  
   function prevStep() {
     if (aitcfcurrentStep > 1) {
       showStep(aitcfcurrentStep - 1);
     }
   }
+
+  // Bind click event on step indicators
+  $(".indicator-wrapper.pointer").on("click", function () {
+    const id = $(this).attr("id"); // e.g., indicator-wrapper-3
+    const stepNumber = parseInt(id.split("-").pop(), 10); // Get 3
+    if (!isNaN(stepNumber)) {
+      goToStep(stepNumber);
+    }
+  });
 
   // On DOM ready
   showStep(1);
@@ -375,65 +410,54 @@ jQuery(function ($) {
     e.preventDefault();
     const $submitBtn = $("#btn-aitcf-multiStepForm");
 
-    const $currentStep = $(`#step-${aitcfcurrentStep}`);
-    const $inputs = $currentStep.find("input[required]");
-    let allValid = true;
-
-    $inputs.each(function () {
-      if (!$(this).val().trim()) {
-        $(this).addClass("is-invalid");
-        allValid = false;
-      } else {
-        $(this).removeClass("is-invalid");
-      }
-    });
-
-    if (allValid) {
-      // Disable button and show spinner
-      $submitBtn.prop("disabled", true);
-      const originalBtnText = $submitBtn.html();
-      $submitBtn.html(
-        `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Submitting...`
-      );
-
-      console.log("see form data", aitcfFormAllData);
-      const alviit_nonce = $("#wp_nonce_alviitcf_msf").val();
-
-      jQuery.ajax({
-        url: aitcf_ajax_url,
-        type: "POST",
-        data: {
-          action: "alviit_cf_submit_ajax_handler",
-          nonce: alviit_nonce,
-          param: "save_form",
-          payload: JSON.stringify(aitcfFormAllData),
-        },
-        success: function (response) {
-          if (response?.data?.success) {
-            toastr.success(response?.data?.message, "Success!");
-            setTimeout(() => {
-              if (aitcf_has_thank_you_page) {
-                window.location.href = "/thank-you";
-              } else {
-                window.location.reload();
-              }
-            }, 1000);
-          }
-          console.log("server success Res", response);
-        },
-        error: function (error) {
-          const serverErrJsonRes = error.responseJSON;
-          if (!serverErrJsonRes?.data?.success) {
-            toastr.error(serverErrJsonRes?.data?.message, "Error!");
-          }
-          console.log("server Error", serverErrJsonRes);
-        },
-        complete: function () {
-          // Restore button state
-          $submitBtn.prop("disabled", false);
-          $submitBtn.html(originalBtnText);
-        },
-      });
+    if (!validateStep(aitcfcurrentStep)) {
+      return;
     }
+
+    // Disable button and show spinner
+    $submitBtn.prop("disabled", true);
+    const originalBtnText = $submitBtn.html();
+    $submitBtn.html(
+      `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Submitting...`
+    );
+
+    console.log("see form data", aitcfFormAllData);
+    const alviit_nonce = $("#wp_nonce_alviitcf_msf").val();
+
+    jQuery.ajax({
+      url: aitcf_ajax_url,
+      type: "POST",
+      data: {
+        action: "alviit_cf_submit_ajax_handler",
+        nonce: alviit_nonce,
+        param: "save_form",
+        payload: JSON.stringify(aitcfFormAllData),
+      },
+      success: function (response) {
+        if (response?.data?.success) {
+          toastr.success(response?.data?.message, "Success!");
+          setTimeout(() => {
+            if (aitcf_has_thank_you_page) {
+              window.location.href = "/thank-you";
+            } else {
+              window.location.reload();
+            }
+          }, 1000);
+        }
+        console.log("server success Res", response);
+      },
+      error: function (error) {
+        const serverErrJsonRes = error.responseJSON;
+        if (!serverErrJsonRes?.data?.success) {
+          toastr.error(serverErrJsonRes?.data?.message, "Error!");
+        }
+        console.log("server Error", serverErrJsonRes);
+      },
+      complete: function () {
+        // Restore button state
+        $submitBtn.prop("disabled", false);
+        $submitBtn.html(originalBtnText);
+      },
+    });
   });
 });

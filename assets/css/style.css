@@ -976,3 +976,16 @@ svg:not(:host).svg-inline--fa {
     /* flex-wrap: wrap; */
   }
 }
+.pointer{
+  cursor: pointer;
+}
+@media (max-width: 767.98px) {
+  .col-6.ng-star-inserted {
+    margin-bottom: 20px;
+  }
+
+button#btn-aitcf-multiStepForm,
+button.aitcf-prevstep-btn{
+    font-size: 12px;
+}
+}

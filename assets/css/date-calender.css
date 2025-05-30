@@ -20,7 +20,7 @@
 
 .calendar-header button {
   border: none;
-  background: transparent;
+  /* background: transparent; */
   font-size: 1.5rem;
   cursor: pointer;
   padding: 6px 10px;
@@ -30,7 +30,7 @@
 
 .calendar-header button:hover,
 .calendar-header button:focus {
-  background-color: #e0e0e0;
+  background-color: #aeaeae;
   outline: none;
 }
 
